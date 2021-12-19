@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>quickFixIndent</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    #wrapper {
+      width: 100vw;
+      height: 100vh;
+      display: grid;
+      grid-template-rows: 40% 20% 40%;
+      grid-template-areas: "header header"
+      "main main"
+      "footer footer";
+    }
+    header {
+      grid-area: header;
+      display: flex;
+    }
+    main {
+      grid-area: main;
+      display: grid;
+    }
+    footer {
+      grid-area: footer;
+      display: flex;
+    }
+    #before, #after {
+      margin: auto;
+      width: 70%;
+      height: 70%;
+      border-radius: 9px;
+      font: italic bold 15px/30px Georgia,serif;
+    }
+    input {
+      text-align: center;
+      font: italic bold 15px/30px Georgia,serif;
+    }
+
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    ::-webkit-scrollbar-thumb {
+      -webkit-border-radius: 5px;
+      border-radius: 5px;
+      background-color: #ccc;
+    }
+    ::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+  </style>
+</head>
+<body>
+
+<div id="wrapper">
+  <header>
+    <textarea placeholder="before" id="before"></textarea>
+  </header>
+  <main>
+    <input id="number" type="text" placeholder="indent number">
+    <button onclick="solve()">Get!</button>
+  </main>
+  <footer>
+    <textarea placeholder="after" id="after"></textarea>
+  </footer>
+</div>
+
+<script>
+  function solve() {
+    let before = document.getElementById("before");
+    let number = document.getElementById("number");
+    let after = document.getElementById("after");
+    let res = before.value.split("\n");
+    let ans = ""
+    for(let i = 0; i < res.length; ++i)
+      if(res[i][0] === " ")
+        ans += res[i].substr(number.value) + "\n";
+      else
+        ans += res[i] + "\n";
+    after.value = ans;
+    after.select();
+    document.execCommand("copy");
+  }
+</script>
+</body>
+</html>
